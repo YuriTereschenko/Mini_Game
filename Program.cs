@@ -15,7 +15,7 @@ Console.WriteLine("'x' - сдаться и досрочно завершить �
 Console.WriteLine();
 Console.WriteLine("Выбери сложность вписав соответствующую цифру:");
 Console.WriteLine("1 - я только попробовать");
-Console.WriteLine("2 - готов к труду и оброне");
+Console.WriteLine("2 - готов к труду и обороне");
 Console.WriteLine("3 - все карты на стол");
 Console.WriteLine("4 - немного камикадзе");
 int hardLvL = Convert.ToInt32(Console.ReadLine());
@@ -48,7 +48,7 @@ while (true)
     
     
 }
-void MakeNewRandomCell (string[,] board) //выбирает случайную х координату и добавляет по ней новый блок, смещая боли того же ряда на 1 вниз
+void MakeNewRandomCell (string[,]board) //выбирает случайную х координату и добавляет по ней новый блок, смещая боли того же ряда на 1 вниз
 {
     int randPos = new Random().Next(1, board.GetLength(1) - 1);
     if (board[board.GetLength(0) - 4, randPos] == "▬▬▬")
@@ -68,7 +68,7 @@ void MakeNewRandomCell (string[,] board) //выбирает случайную �
 }
 
 
-void ClearRow(string[,] board) //очищает первый ряд и отрисовывает доску, если ряд заполнен
+void ClearRow(string[,]board) //очищает первый ряд и отрисовывает доску, если ряд заполнен
 {
     int count = 0;
     for (int i = 1; i < board.GetLength(1); i++) //считаем количество заполненных ячеек в первой строке поля
@@ -100,7 +100,7 @@ void ClearRow(string[,] board) //очищает первый ряд и отри�
 }
 
 
-int CountPoint (string[,] board)  //отслеживает заполнение ряда и считает заработанные очки
+int CountPoint (string[,]board)  //отслеживает заполнение ряда и считает заработанные очки
 {
     int tempPoint=0;
     int count = 0;
@@ -139,27 +139,27 @@ string wordPoint(int point) //Определяем окончание слова
 }
 
 
-string [,] CreateBoard (string [,] Array)  //принимает массив и отрисовывает текущее состояние игрового полня
+string [,] CreateBoard (string[,]board)  //принимает массив и отрисовывает текущее состояние игрового полня
 {   
-    for (int x = 0; x < Array.GetLength(1); x++)
+    for (int x = 0; x < board.GetLength(1); x++)
     {
-        for (int y = 0; y< Array.GetLength(0); y++)
+        for (int y = 0; y< board.GetLength(0); y++)
         {
-            if (y == 0 || y == (Array.GetLength(1) -1) || x == 0 || x == Array.GetLength(0) -1)
+            if (y == 0 || y == (board.GetLength(1) -1) || x == 0 || x == board.GetLength(0) -1)
             {
-                Array[y,x] = " x ";
+                board[y,x] = " x ";
             }            
             else
             {
-                Array[x,y] = "   ";
+                board[x,y] = "   ";
             }
         }
     }    
-    return Array;
+    return board;
 }
 
 
-void PrintPlayingField (string [,] board)  //отрисовывает доску
+void PrintPlayingField (string[,]board)  //отрисовывает доску
 {
     Console.Clear();
     for (int x = 0; x < board.GetLength(1); x++)
@@ -173,23 +173,23 @@ void PrintPlayingField (string [,] board)  //отрисовывает доску
 }
 
 
-string [,] MakeHero (string [,] Array, int coordinate) // создает персонажа
+string [,] MakeHero (string[,]board, int coordinate) // создает персонажа
 {
-    Array[Array.GetLength(0) - 2, coordinate] = " █ ";
-    return Array;
+    board[board.GetLength(0) - 2, coordinate] = " █ ";
+    return board;
     
 }
 
 
-string [,] Fire (string [,] Array, int coordinate) //заполняет дальнюю не заполненную ячейку "стреляет"
+string [,] Fire (string[,]board, int coordinate) //заполняет дальнюю не заполненную ячейку "стреляет"
 {
-    if(Array[Array.GetLength(0)-4, coordinate] != "▬▬▬")
+    if(board[board.GetLength(0)-4, coordinate] != "▬▬▬")
     {
-    for (int y = Array.GetLength(0) -4; y >= 0; y--)
+    for (int y = board.GetLength(0) -4; y >= 0; y--)
     {
-        if (Array[y, coordinate] == "▬▬▬" || y == 0)
+        if (board[y, coordinate] == "▬▬▬" || y == 0)
         {
-            Array[y+1, coordinate] = "▬▬▬";
+            board[y+1, coordinate] = "▬▬▬";
         }
        
     }
@@ -199,7 +199,7 @@ string [,] Fire (string [,] Array, int coordinate) //заполняет даль
         System.Console.WriteLine("Ты проиграл");
         Environment.Exit(0);
     }
-    return Array;
+    return board;
 }
 
 
@@ -239,7 +239,7 @@ void MoveOrFire () //совершает действие по выбору иг�
         Console.WriteLine("'a' - передвинуть персонажа влево");
         Console.WriteLine("'d' - передвинуть персонажа вправо");
         Console.WriteLine("'x' - сдаться и досрочно завершить игру");
-        Console.WriteLine("Нажми любую клавишу, когда будешь готов");
+        Console.WriteLine("Нажми Enter, когда будешь готов");
         Console.ReadLine();
         MoveOrFire();
         break;
